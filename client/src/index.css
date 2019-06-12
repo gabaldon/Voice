@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.navBar{
+  position: fixed;
+  z-index: 1;
+}
+.signUpForm{
+  margin-top: 100px;
+  position: absolute;
+  z-index: 1;
+}
+.loginForm{
+  position:absolute;
+  margin-top: 100px;
+  z-index: 1;
+}
+.profile{
+  position:absolute;
+  margin-top: 100px;
+  z-index: 1;
+}
+.modal-container{
+  z-index: 1;
+  position:absolute;
+  margin-top: 100px;
+}
