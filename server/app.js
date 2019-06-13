@@ -40,9 +40,7 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
-// Middleware subida de archivos Cloudinary
-const fileRoutes = require('./routes/file-upload.routes')
-app.use('/api', fileRoutes);
+
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -55,6 +53,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // default value for title local
 app.locals.title = 'Ways';
+
+// Middleware subida de archivos Cloudinary
+const fileRoutes = require('./routes/file-upload.routes')
+app.use('/api', fileRoutes);
 
 const coasterRoutes = require('./routes/post.routes')
 app.use('/api', coasterRoutes)

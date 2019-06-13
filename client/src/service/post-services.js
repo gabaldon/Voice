@@ -24,8 +24,13 @@ export default class services {
     }
 
     handleUpload = uploadData => {
-        return this.service.post('upload', uploadData, { withCredentials: true })
-            .then(res => res.data)
+
+        return this.service.post('upload', uploadData, { headers: {'Content-Type': 'multipart/form-data' }, withCredentials: true })
+            .then(res => {
+                console.log("AUDIO FILE UPLOADED");
+                console.log(res);
+                return res.data;
+            })
             .catch(err => console.log(err));
     }
 }

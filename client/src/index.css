@@ -36,3 +36,8 @@ code {
   position:absolute;
   margin-top: 100px;
 }
+audio{
+  z-index: 1;
+  position:absolute;
+  margin-top: 100px;
+}

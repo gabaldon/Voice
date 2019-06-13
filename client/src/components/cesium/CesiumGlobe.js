@@ -5,13 +5,16 @@ import SkyBox from "cesium/Source/Scene/SkyBox"
 // import SkyAtmosphere from "cesium/Source/Scene/SkyAtmosphere"
 // import Scene from "cesium/Source/Scene/Scene"
 import Color from "cesium/Source/Core/Color"
-import CesiumPoints from "./CesiumPoints"
+// import CesiumPoints from "./CesiumPoints"
 import Cartesian3 from "cesium/Source/Core/Cartesian3"
-import GeoJsonDataSource from "cesium/Source/DataSources/GeoJsonDataSource"
-import EntityCollection from "cesium/Source/DataSources/EntityCollection"
-import Data from '../../example.json'
-import BillboardCollection from "cesium/Source/Scene/BillboardCollection"
+// import GeoJsonDataSource from "cesium/Source/DataSources/GeoJsonDataSource"
+// import EntityCollection from "cesium/Source/DataSources/EntityCollection"
+// import Data from '../../example.json'
+// import BillboardCollection from "cesium/Source/Scene/BillboardCollection"
 import PostServices from '../../service/post-services'
+import ScreenSpaceEventHandler from 'cesium/Source/Core/ScreenSpaceEventHandler'
+import Cesium from 'cesium/Source/Cesium'
+
 
 
 
@@ -31,11 +34,12 @@ class CesiumGlobe extends Component {
             animation : false,
             baseLayerPicker : true,
             fullscreenButton : false,
+            useDepthPicking:true,
             geocoder : true,
             homeButton : false,
             infoBox : false,
             sceneModePicker : false,
-            selectionIndicator : true,
+            selectionIndicator : false,
             timeline : false,
             navigationHelpButton : false,
             scene3DOnly : true,
@@ -49,13 +53,12 @@ class CesiumGlobe extends Component {
         this.viewer.scene.globe.showGroundAtmosphere = true
         this.viewer.scene.moon.show = false
         this.viewer.scene.sun.show = false
-
-        // this.billboards = new BillboardCollection();
-        // this.viewer.dataSources.add(GeoJsonDataSource.load(Data))
+    
 
     this.services = new PostServices()
         
-    this.services.getAllPosts().then(data =>{
+    const postsPoints = this.services.getAllPosts().then(data =>{
+
        data.forEach ( post =>{
             var long = post.longitude
             var lat = post.latitude
@@ -63,7 +66,7 @@ class CesiumGlobe extends Component {
         
         
 
-        this.viewer.entities.add(
+        let entity = this.viewer.entities.add(
             { position : Cartesian3.fromDegrees(
                 long,
                 lat
@@ -77,16 +80,45 @@ class CesiumGlobe extends Component {
             },
 
             polyline :{
-                positions : Cartesian3.fromDegreesArray([
-                  -75.10, 39.57,
-                  -77.02, 38.53,
-                  -80.50, 35.14,
-                  -80.12, 25.46]),
+                
                 width : 2
             }
         });
-        })
+
+        // EVENT LISTENER
+
+        this.viewer.scene.pickTranslucentDepth = true
+        var handler = new ScreenSpaceEventHandler(this.viewer.scene.canvas);
+        
+        handler.setInputAction((movement)=> {
+            var pickedObject = this.viewer.scene.pick(movement.endPosition)
+            if (Cesium.defined(pickedObject) && (pickedObject.id === entity)) {
+                entity.point.pixelSize = 5;
+                console.log(pickedObject)
+                let audioUrl = post.audio
+                let audio = new Audio(audioUrl).play().then(res => console.log(res))
+                
+                console.log(audio)
+               
+                
+            } else {
+                
+                entity.point.pixelSize = 5;
+                
+                
+            }
+
+       
+        }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+
+        //END EVENT LISTENER
+        
     })
+        
+
+
+    })
+
     }
 
    
@@ -112,7 +144,7 @@ class CesiumGlobe extends Component {
         return(
 
             <div className="cesiumGlobeWrapper" style={containerStyle}>
-            
+                
                 <div
                     className="cesiumWidget"
                     ref={ element => this.cesiumContainer = element }

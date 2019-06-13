@@ -8,22 +8,19 @@ export class Example extends Component {
         record: false,
         url: '',
       }
-   
+
     }
    
     startRecording = () => {
       this.setState({
         record: true
-      
       });
     }
-   
+  
     stopRecording = () => {
       this.setState({
-        record: false,
-       
+        record: false
       });
-      
     }
 
   //   handleFileUpload = (e) => {
@@ -44,22 +41,35 @@ export class Example extends Component {
   //         .catch(err => console.log(err))
   // }
    
-    onData(recordedBlob) {
-      console.log('chunk of real-time data is: ', recordedBlob);
-    }
-   
-    onStop = (recordedBlob) =>{
+  onData(recordedBlob) {
+    console.log('chunk of real-time data is: ', recordedBlob);
+  }
 
-    
-      console.log('recordedBlob is: ', recordedBlob);
-      console.log('recordedBlob is: ', recordedBlob.blobURL);
+  onStop = (recordedBlob) => {
 
-     this.setState({
-        record: false,
+      this.setState({
         url: recordedBlob
       });
-      console.log(this.state.url)
-    }
+      this.props.handleFileUpload(this.state.url)
+  }
+
+
+    // onData(recordedBlob) {
+    //   console.log('chunk of real-time data is: ', recordedBlob);
+    // }
+   
+    // onStop(){
+      
+    //   console.log("Hola")
+    
+    // //   console.log('recordedBlob is: ', recordedBlob);
+    // //   console.log('recordedBlob is: ', recordedBlob.blobURL);
+
+
+    // //   console.log(this.state.url)
+
+    // //   this.props.handleFileUpload(this.state.url)
+    // }
    
     render() {
       return (
@@ -79,3 +89,5 @@ export class Example extends Component {
   }
 
 export default Example
+
+

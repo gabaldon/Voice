@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal'
 import { Link, Redirect } from 'react-router-dom'
 // import RecorderManager from '../recorder'
 import Example from './ReactMic'
+// import ReactMic from './react-mic/React-micf'
 
 
 
@@ -16,8 +17,8 @@ export default class PostForm extends Component {
             
               
                     type: "Point", 
-                    longitude: "",
-                    latitude: "",
+                    longitude: 0,
+                    latitude: 0,
                     description: '',
                     audio: '',
                     color: ''
@@ -58,9 +59,16 @@ export default class PostForm extends Component {
       }
 
     handleFileUpload = (url) => {
+
+        // console.log("This is the Form data ",FormData)
+        // console.log("This is the Blob ",url)
+       
         let uploadData = new FormData();
-        uploadData.append("blob", url);
-        console.log("Uploaded data is: ", url)
+        uploadData.append("blob", url.blob);
+
+        // console.log("This is the Blob ",url)
+        // console.log(uploadData)
+
         this.services.handleUpload(uploadData)
             .then(response => {
                 console.log(response.secure_url)
@@ -74,25 +82,6 @@ export default class PostForm extends Component {
             .catch(err => console.log(err))
     }
     
-    // getMyLocation = (e) => {
-    //     let location = null;
-    //     let latitude = null;
-    //     let longitude = null;
-    //     if (window.navigator && window.navigator.geolocation) {
-    //         location = window.navigator.geolocation
-    //     }
-    //     if (location){
-    //         location.getCurrentPosition(function (position) {
-                
-    //             latitude = position.coords.latitude;
-    //             longitude= position.coords.longitude;
-    //             console.log(longitude);
-    //             console.log(latitude);
-    //         })
-    //     }
-        
-        
-    // }
 
     handleClose = () => this.setState({ show: false ,
         redirect: true})
@@ -131,9 +120,6 @@ export default class PostForm extends Component {
             .catch(error => console.log(error.response.data.message))
     }
      
-
-    
-   
     
     render(){
         // this.setState({postform:{latitude: latitude, longitude: longitude}})
@@ -154,14 +140,22 @@ export default class PostForm extends Component {
                     {/* <label htmlFor="coodinates">Location </label> */}
                     {/* <input onChange={(e) => this.handlechange(e)} value={this.state.postform.coodinates} type="text" className="form-control" id="location" name="coordinates" /> */}
                 </div>
-                <Example  handleFileUpload = {url => this.handleFileUpload(url)}/>
+
+                {/* <ReactMic/> */}
+                <Example handleFileUpload={url => this.handleFileUpload(url)}/>
+
+
+
                 {/* <div>{recorder}</div> */}
                 {/* <div className="form-group">
                     <label htmlFor="audio">URL imagen</label>
                     <input onChange={(e) => this.handleFileUpload(e)} type="file" className="form-control" id="audio" name="audio" />
                 </div> */}
             {this.state.postform.audio &&
-            <button type="submit" className="send-btn">Enviar</button>
+            <div>
+                <audio controls src={this.state.postform.audio}/>
+                <button type="submit" className="send-btn">Enviar</button>
+            </div>
             }
             </form>
             <button className="close" onClick={this.handleClose}>Close</button>
