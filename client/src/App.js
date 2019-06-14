@@ -3,7 +3,8 @@ import Navigation from './components/NavBar'
 import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
 import AuthServices from "./service/auth-services"
-import PostServices from "./service/post-services"
+
+// import PostServices from "./service/post-services"
 // import ProtectedRoute from './components/auth/Protected-route'
 import {Switch, Route} from 'react-router-dom'
 //Cesium components
@@ -20,6 +21,7 @@ class App extends Component {
 
     constructor(props) {
         super(props)
+        
         this.state = { loggedInUser: null }
         this.services = new AuthServices()
         
@@ -38,6 +40,8 @@ class App extends Component {
             
     }
     }
+
+
     
 
     render() {
@@ -58,8 +62,8 @@ class App extends Component {
             
             return(
             <main>
-            <Navigation userInSession={this.state.loggedInUser}/>
             <CesiumGlobe/>
+            <Navigation userInSession={this.state.loggedInUser}/>
             <Switch>
             <Route path="/signup" render={() => <Signup setTheUser={this.setUser} />} />
             <Route path="/login" render={() => <Login setTheUser={this.setUser} />} />

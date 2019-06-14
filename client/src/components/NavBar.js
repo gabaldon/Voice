@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import AuthServices from '../service/auth-services'
-import PostForm from './PostForm'
+// import PostForm from './PostForm'
 
 
 
@@ -34,6 +34,7 @@ class Navigation extends Component {
         return (
             <div className="navBar">
             <div><Link to="/login" >Log In</Link></div>
+            
             </div>
         )
     }

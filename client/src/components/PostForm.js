@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PostServices from '../service/post-services'
-import Modal from 'react-bootstrap/Modal'
-import { Link, Redirect } from 'react-router-dom'
+// import Modal from 'react-bootstrap/Modal'
+import { Redirect } from 'react-router-dom'
 // import RecorderManager from '../recorder'
 import Example from './ReactMic'
 // import ReactMic from './react-mic/React-micf'
@@ -154,12 +154,13 @@ export default class PostForm extends Component {
             {this.state.postform.audio &&
             <div>
                 <audio controls src={this.state.postform.audio}/>
-                <button type="submit" className="send-btn">Enviar</button>
+                <button type="submit" className="send-btn" >Enviar</button>
             </div>
             }
             </form>
             <button className="close" onClick={this.handleClose}>Close</button>
-           
+            {/* this.viewer.entities.removeAll() */}
+            {/* this.loadPoints(this.state.data) */}
             
             </div>
         )
