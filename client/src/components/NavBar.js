@@ -33,6 +33,7 @@ class Navigation extends Component {
     } else{
         return (
             <div className="navBar">
+            <h1>Voice</h1>
             <div><Link to="/login" >Log In</Link></div>
             
             </div>

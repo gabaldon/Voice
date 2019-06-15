@@ -84,7 +84,9 @@ export default class PostForm extends Component {
     
 
     handleClose = () => this.setState({ show: false ,
-        redirect: true})
+    
+        redirect: true
+    })
     handleShow = () => this.setState({ show: true })
 
     // handlechange = (e, key) => {
@@ -105,6 +107,7 @@ export default class PostForm extends Component {
                 [name]: value
             }
         })
+        // this.props.loadPoints(this.props.data)
     }
 
     setPost = postObj => this.setState({ postform: postObj })
@@ -158,7 +161,7 @@ export default class PostForm extends Component {
             </div>
             }
             </form>
-            <button className="close" onClick={this.handleClose}>Close</button>
+            <button className="close" onClick={this.handleClose} >Close</button>
             {/* this.viewer.entities.removeAll() */}
             {/* this.loadPoints(this.state.data) */}
             

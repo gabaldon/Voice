@@ -1,51 +1,174 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Gotham Book';;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+main{
+  width: 100vw;
+  height: 100vh;
 }
 
-.navBar{
-  position: fixed;
+/* NAV BAR */
+
+.navBar {
+  position: absolute;
   z-index: 1;
+ 
+  width: 100vw;
 }
-.signUpForm{
+h1{
+  color:rgb(18, 247, 10);
+  left: 30px;
+  top: 0px;
+  font-family: 'Friz Quadrata Regular OS';
+  position: absolute;
+  font-size: 50px;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0); /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: rgb(18, 247, 10);
+}
+a{
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1.5em;
+  text-shadow: 2px 2px 4px rgb(18, 247, 10)
+}
+a:hover{
+  text-decoration: none;
+}
+.navBar a{
+  position: absolute;
+  z-index: 1;
+ top:20px;
+  right: 20px;
+}
+
+
+
+/* SEARCH BAR */
+
+.SearchBar{
+  z-index: 1;
+  position:fixed;
+  left: 42vw;
+  padding-top: 20px;
+  
+  
+}
+.SearchBar input{
+  border: 0;
+  border-bottom: 3px;
+  border-color: white;
+  padding: 3px 5px 5px 50px;
+  margin: 20px auto;
+  border-style: solid;
+  height: 20px;
+  width: 100px;
+  background-color:rgba(255, 235, 205, 0);
+  color:rgb(18, 247, 10);
+  font-family: 'Gotham Book';
+  font-size: 1em;
+  font-weight: 700;
+  background-image: url('./img/search-icon.svg');
+  background-size: 27px 23px;
+  background-repeat: no-repeat;
+}
+
+::placeholder { 
+  color:white;
+  opacity: 1; 
+  text-shadow: 1px 1px 3px rgb(18, 247, 10);
+  padding: 5px 
+}
+.SearchBar input:focus{
+  outline: none;
+}
+
+/* SIGN UP / LOG IN */
+
+.signUp{
   margin-top: 100px;
   position: absolute;
   z-index: 1;
 }
 .loginForm{
-  position:absolute;
-  margin-top: 100px;
+ 
+  
+  width: 350px;
+  height: 500px;
   z-index: 1;
+  position: absolute;
+  right: 70vh;
+  top: 15vh;
+  background-color: rgb(18, 247, 10);
+  border-radius: 25px;
+    /* transition-property: all;
+    transition: all 0.6s cubic-bezier(0.33, 0.72, 0.81, 1.19) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.profile{
-  position:absolute;
-  margin-top: 100px;
-  z-index: 1;
+.login{
+  margin: 0 auto;
 }
-.modal-container{
-  z-index: 1;
-  position:absolute;
-  margin-top: 100px;
+.form-group{
+  padding: 20px;
+  z-index: 1
+  
 }
-.SearchBar{
-  z-index: 1;
-  position:absolute;
-  margin-left: 100px;
+.form-control{
+  border: 0;
+  border-color: white;
+  border-style: solid;
+  height: 30px;
+  width: 200px;
+  background-color:white;
+  border-radius: 20px;
+  color:rgb(18, 247, 10);
+  font-family: 'Gotham Book';
+  font-size: 1em;
+  font-weight: 700;
+}
+.form-control ::placeholder { 
+  color: black;
+  opacity: 1; 
+  padding: 5px 
 }
 
 
-.cesium-viewer-credits{
-  display:none;
+.btn-access{
+  border: none;
+  outline:none;
+  background: rgba(0, 0, 0, 0);
+  background-image: url('./img/acess-icon.svg');
+  background-size: 24.5px;
+  
 }
-.cesium-viewer-bottom{
-  display:none;
+.signUpLink{
+  font-size: .5em;
+  
 }
+/* .out-of-the-way-right {
+  transform: translateX(155vw); }
+
+.move-in-right {
+  transform: translateX(50vw); }
+
+ */
+
+ /* GRID */
+ .col {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1; }
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%; }
+
+

@@ -49,21 +49,21 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="loginForm">
+            <div className="loginContainer">
            {this.state.redirect ? <Redirect to='/'></Redirect> : null}
-            <div className="loginForm SignupForm">
-             <Link to="/signup" >Si no te has registrado aún ¡Registrarse!</Link>
-            <form onSubmit={this.handleSubmit} className="loginForm">
+            <div className="loginForm col">
+            <form onSubmit={this.handleSubmit} className="login">
                 <div className="form-group">
-                    <label htmlFor="username">Usuario</label>
-                    <input onChange={this.handleChange} value={this.state.username} type="text" className="form-control" id="username" name="username" />
+                    <label className="row" htmlFor="username"></label>
+                    <input onChange={this.handleChange} value={this.state.username} type="text" className="form-control" id="username" name="username" placeholder="Username"/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Contraseña</label>
-                    <input onChange={this.handleChange} value={this.state.password} type="password" className="form-control" id="password" name="password" />
+                    <label className=" row" htmlFor="password"></label>
+                    <input onChange={this.handleChange} value={this.state.password} type="password" className="form-control" id="password" name="password" placeholder="Password"/>
                 </div>
 
-                <button type="submit" className="btn btn-dark">¡Acceder!</button>
+                <button type="submit" className="form-group row btn-access"></button>
+                <Link to="/signup" className="form-group SignupLink row">Sign Up</Link>
             </form>
             </div>
             
