@@ -73,16 +73,18 @@ export class Example extends Component {
    
     render() {
       return (
-        <div>
+        <div className="mic-container">
           <ReactMic
             record={this.state.record}
-            className="sound-wave"
+            className="sound-wave row"
             onStop={this.onStop}
             onData={this.onData}
-            strokeColor="#000000"
-            backgroundColor="#FFFF" />
-          <button onClick={this.startRecording} type="button">Start</button>
-          <button onClick={this.stopRecording} type="button">Stop</button>
+            strokeColor="rgb(18, 247, 10)"
+            backgroundColor="#00000000" />
+          <div className="row">
+          <button onClick={this.startRecording} className="voice-recording-btn" type="button"></button>
+          <button onClick={this.stopRecording} className="stop-voice-recording-btn" type="button"></button>
+          </div>
         </div>
       );
     }

@@ -13,15 +13,18 @@ class Login extends Component {
             
             username: '', 
             password: '',
-            
+            movein:false,
         }
         this.services = new AuthServices()
+        this.handleClose = this.handleClose.bind(this)
         // MODAL
         // this.handleShow = this.handleShow.bind(this)
         // this.handleClose = this.handleClose.bind(this)
     }
 
-    
+    componentDidMount() {
+        setInterval(() => this.setState({ movein: !this.state.loading }), 100);
+      }
     // MODAL
     // handleClose = () => this.setState({ show: false })
     // handleShow = () => this.setState({ show: true })
@@ -32,7 +35,10 @@ class Login extends Component {
         this.setState({ [name]: value })
     }
 
+    handleClose = () => this.setState({ show: false ,
     
+        redirect: true
+    })
 
     handleSubmit = e => {
 
@@ -51,19 +57,20 @@ class Login extends Component {
         return (
             <div className="loginContainer">
            {this.state.redirect ? <Redirect to='/'></Redirect> : null}
-            <div className="loginForm col">
+            <div className={`loginForm ${this.state.movein ? 'move-in-right' : '' } col`}>
+           <button className="btn-close" onClick={this.handleClose} >Close</button>
             <form onSubmit={this.handleSubmit} className="login">
                 <div className="form-group">
-                    <label className="row" htmlFor="username"></label>
+                    <label  htmlFor="username"></label>
                     <input onChange={this.handleChange} value={this.state.username} type="text" className="form-control" id="username" name="username" placeholder="Username"/>
                 </div>
                 <div className="form-group">
-                    <label className=" row" htmlFor="password"></label>
+                    <label htmlFor="password"></label>
                     <input onChange={this.handleChange} value={this.state.password} type="password" className="form-control" id="password" name="password" placeholder="Password"/>
                 </div>
 
                 <button type="submit" className="form-group row btn-access"></button>
-                <Link to="/signup" className="form-group SignupLink row">Sign Up</Link>
+                <Link to="/signup" className="form-group SignupLink row">If you don´t have an account Sign Up</Link>
             </form>
             </div>
             

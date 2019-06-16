@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AuthServices from '../../service/auth-services'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 class Signup extends Component {
 
@@ -8,12 +8,18 @@ class Signup extends Component {
         super(props)
         this.state = { username: '', password: '', redirect: false }
         this.services = new AuthServices()
+        this.handleClose = this.handleClose.bind(this)
     }
 
     handleChange = e => {
         const { name, value } = e.target;
         this.setState({ [name]: value })
     }
+
+    handleClose = () => this.setState({ show: false ,
+    
+        redirect: true
+    })
 
     handleSubmit = e => {
         e.preventDefault()
@@ -29,18 +35,20 @@ class Signup extends Component {
     
     render() {
         return (
-            <div>
+            <div className="loginForm move-in-right col">
            {this.state.redirect ? <Redirect to='/'></Redirect> : null}
-            <form className="signUpForm" onSubmit={this.handleSubmit}>
+            <button className="btn-close" onClick={this.handleClose} >Close</button>
+            <form className="signUpForm" onSubmit={this.handleSubmit} className="login">
                 <div className="form-group">
-                    <label htmlFor="username">Usuario</label>
-                    <input onChange={this.handleChange} value={this.state.username} type="text" className="form-control" id="username" name="username" />
+                    <label htmlFor="username"></label>
+                    <input onChange={this.handleChange} value={this.state.username} type="text" className="form-control" id="username" name="username" placeholder="Username" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Contraseña</label>
-                    <input onChange={this.handleChange} value={this.state.password} type="password" className="form-control" id="password" name="password" />
+                    <label htmlFor="password"></label>
+                    <input onChange={this.handleChange} value={this.state.password} type="password" className="form-control" id="password" name="password" placeholder="Password"/>
                 </div>
-                <button type="submit" className="btn btn-dark">¡Acceder!</button>
+                <button type="submit" className="form-group row btn-access"></button>
+                <Link to="/login" className="form-group SignupLink row">Back to Sign Up</Link>
             </form>
             
             </div> 

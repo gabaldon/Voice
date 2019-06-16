@@ -26,7 +26,8 @@ export default class PostForm extends Component {
     
             
                     },
-            show: true
+            show: true,
+            
         }
         this.services = new PostServices()
         this.handleShow = this.handleShow.bind(this)
@@ -128,43 +129,23 @@ export default class PostForm extends Component {
         // this.setState({postform:{latitude: latitude, longitude: longitude}})
         // const recorder = RecorderManager.create()
         return(
-            <div className="modal-container">
-             
+            <div className="post-container col">
              {this.state.redirect ? <Redirect to='/'></Redirect> : null}
-            <form onSubmit={this.handleSubmit}>
-                <div className="description">
-                    <label htmlFor="description">Descripción</label>
-                    <input onChange={(e) => this.handlechange(e)} value={this.state.postform.description} type="text" className="form-control" id="description" name="description" />
+            <form className="col" onSubmit={this.handleSubmit}>
+                <div className="post-form-it description">
+                    <label className="description-title" htmlFor="description"></label>
+                    <input onChange={(e) => this.handlechange(e)} value={this.state.postform.description} type="text" className="row" id="description" name="description" placeholder="Write a description" />
                 </div>
-                {/* <input type="text" value={this.state.postform.latitude} />
-                <input type="text" value={this.state.postform.longitude} /> */}
-                <button type="button" onClick={this.getMyLocation} >Get Geolocation</button>
-                <div className="location">
-                    {/* <label htmlFor="coodinates">Location </label> */}
-                    {/* <input onChange={(e) => this.handlechange(e)} value={this.state.postform.coodinates} type="text" className="form-control" id="location" name="coordinates" /> */}
+                <button className="post-form-it geolocation-btn  row" type="button" onClick={this.getMyLocation} ></button>
+                <Example className="post-form-it mic-container  row" handleFileUpload={url => this.handleFileUpload(url)}/>
+                {this.state.postform.audio &&
+                <div className="row">
+                    <audio className="post-form-it audio-controls  row" controls src={this.state.postform.audio}/>
+                    <button type="submit" className="btn-post post-form-it row" ></button>
                 </div>
-
-                {/* <ReactMic/> */}
-                <Example handleFileUpload={url => this.handleFileUpload(url)}/>
-
-
-
-                {/* <div>{recorder}</div> */}
-                {/* <div className="form-group">
-                    <label htmlFor="audio">URL imagen</label>
-                    <input onChange={(e) => this.handleFileUpload(e)} type="file" className="form-control" id="audio" name="audio" />
-                </div> */}
-            {this.state.postform.audio &&
-            <div>
-                <audio controls src={this.state.postform.audio}/>
-                <button type="submit" className="send-btn" >Enviar</button>
-            </div>
-            }
+                }
             </form>
-            <button className="close" onClick={this.handleClose} >Close</button>
-            {/* this.viewer.entities.removeAll() */}
-            {/* this.loadPoints(this.state.data) */}
-            
+            <button className="btn-close" onClick={this.handleClose} >Close</button>
             </div>
         )
     }

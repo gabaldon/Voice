@@ -3,6 +3,7 @@ import Navigation from './components/NavBar'
 import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
 import AuthServices from "./service/auth-services"
+import { TransitionGroup, CSSTransition } from "react-transition-group"
 
 // import PostServices from "./service/post-services"
 // import ProtectedRoute from './components/auth/Protected-route'
@@ -250,7 +251,7 @@ class App extends Component {
                     style={widgetStyle}
                     > 
                  <form className="SearchBar">
-                <input  className="SearchBarInput" type="text" name="query" value={this.state.query} onChange={(e)=>this.handleChange(e)} placeholder="Search.." >
+                <input  className="SearchBarInput" type="text" name="query" value={this.state.query} onChange={(e)=>this.handleChange(e)} placeholder="Search..." >
                 
                 </input>
                 </form> 
@@ -259,10 +260,13 @@ class App extends Component {
             </div>
             
             <Navigation userInSession={this.state.loggedInUser}/>
+           
             <Switch>
             <Route path="/signup" render={() => <Signup setTheUser={this.setUser} />} />
             <Route path="/login" render={() => <Login setTheUser={this.setUser} />} />
             </Switch>
+            
+           
             </main>
             )
         }
