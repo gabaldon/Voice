@@ -10,9 +10,10 @@ import Example from './ReactMic'
 
 export default class PostForm extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
+            
             postform: {   
             
               
@@ -27,6 +28,7 @@ export default class PostForm extends Component {
             
                     },
             show: true,
+            movein:false,
             
         }
         this.services = new PostServices()
@@ -38,6 +40,9 @@ export default class PostForm extends Component {
     // componentDidMount() {
     //     this.getMyLocation()
     //   }
+    componentDidMount() {
+        setInterval(() => this.setState({ movein: !this.state.loading }), 100);
+      }
 
     getMyLocation() {
         const location = window.navigator && window.navigator.geolocation
@@ -117,6 +122,7 @@ export default class PostForm extends Component {
         e.preventDefault()
             this.services.postPost(this.state.postform)
             .then(response => {
+                this.props.loadPointsFromSon()
                 this.setState({ redirect: true }, () => {
                     this.setPost(response)
                 })
@@ -129,8 +135,9 @@ export default class PostForm extends Component {
         // this.setState({postform:{latitude: latitude, longitude: longitude}})
         // const recorder = RecorderManager.create()
         return(
-            <div className="post-container col">
+            <div>
              {this.state.redirect ? <Redirect to='/'></Redirect> : null}
+            <div className={`post-container col ${this.state.movein ? 'move-in-right' : '' }`}>
             <form className="col" onSubmit={this.handleSubmit}>
                 <div className="post-form-it description">
                     <label className="description-title" htmlFor="description"></label>
@@ -146,6 +153,7 @@ export default class PostForm extends Component {
                 }
             </form>
             <button className="btn-close" onClick={this.handleClose} >Close</button>
+            </div>
             </div>
         )
     }

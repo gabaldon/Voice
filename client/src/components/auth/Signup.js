@@ -6,10 +6,14 @@ class Signup extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { username: '', password: '', redirect: false }
+        this.state = { username: '', password: '', redirect: false , movein:false,}
         this.services = new AuthServices()
         this.handleClose = this.handleClose.bind(this)
+       
     }
+    componentDidMount() {
+        setInterval(() => this.setState({ movein: !this.state.loading }), 100);
+      }
 
     handleChange = e => {
         const { name, value } = e.target;
@@ -35,10 +39,11 @@ class Signup extends Component {
     
     render() {
         return (
-            <div className="loginForm move-in-right col">
-           {this.state.redirect ? <Redirect to='/'></Redirect> : null}
+            <div className="loginContainer">
+            {this.state.redirect ? <Redirect to='/'></Redirect> : null}
+            <div className={`loginForm ${this.state.movein ? 'move-in-right' : '' } col`} >
             <button className="btn-close" onClick={this.handleClose} >Close</button>
-            <form className="signUpForm" onSubmit={this.handleSubmit} className="login">
+            <form onSubmit={this.handleSubmit} className="login">
                 <div className="form-group">
                     <label htmlFor="username"></label>
                     <input onChange={this.handleChange} value={this.state.username} type="text" className="form-control" id="username" name="username" placeholder="Username" />
@@ -48,9 +53,10 @@ class Signup extends Component {
                     <input onChange={this.handleChange} value={this.state.password} type="password" className="form-control" id="password" name="password" placeholder="Password"/>
                 </div>
                 <button type="submit" className="form-group row btn-access"></button>
-                <Link to="/login" className="form-group SignupLink row">Back to Sign Up</Link>
+                <Link to="/login" className="form-group SignupLink row">Back to Log in</Link>
             </form>
             
+            </div>
             </div> 
                    
         )

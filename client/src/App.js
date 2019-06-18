@@ -4,6 +4,7 @@ import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
 import AuthServices from "./service/auth-services"
 import { TransitionGroup, CSSTransition } from "react-transition-group"
+import Intro from './components/Intro'
 
 // import PostServices from "./service/post-services"
 // import ProtectedRoute from './components/auth/Protected-route'
@@ -38,6 +39,7 @@ class App extends Component {
         super(props)
         
         this.state = { 
+            appear: true,
             loggedInUser: null,
             viewerLoaded : false,
             query: '',
@@ -45,10 +47,14 @@ class App extends Component {
         }
         this.servicesAuth = new AuthServices()
         
-        
+
     }
+
+
     
     setUser = userObj => this.setState({ loggedInUser: userObj })
+
+    
     
     fetchUser = () => {
         if (this.state.loggedInUser === null) {
@@ -61,8 +67,24 @@ class App extends Component {
             
         }
     }
+
+    loadPointsFromSon = () => {
+
+
+        this.services.getAllPosts()
+        .then(data =>{
     
-    loadPoints (data) {
+            this.setState({
+                data: data,
+            })
+            console.log(this.state.data[this.state.data.length - 1])
+            this.viewer.entities.removeAll()
+            this.loadPoints(this.state.data)
+    })
+
+    }  
+    
+    loadPoints = (data) => {
         data.forEach(post =>{
             var long = post.longitude
             var lat = post.latitude
@@ -110,6 +132,12 @@ class App extends Component {
         }
         
         componentDidMount() {
+
+            
+            if(this.state.appear) setTimeout(() => this.setState({ appear: false }), 6000)
+
+                
+            
             
             this.setState({
                 viewerLoaded : true,
@@ -160,8 +188,7 @@ class App extends Component {
             this.setState({
                 data: data,
             })
-
-            this.loadPoints(data)
+            this.loadPoints(this.state.data)
         
             //SEARCH BAR CONFIGURATION
             this.handleChange = (e)=>{
@@ -170,7 +197,7 @@ class App extends Component {
                 this.setState({
                     [name]:value
                 })
-                const filtered = data.filter( elm => elm.description.toLowerCase().includes(e.target.value.toLowerCase()))
+                const filtered = this.state.data.filter( elm => elm.description.toLowerCase().includes(e.target.value.toLowerCase()))
             
                 this.viewer.entities.removeAll()
 
@@ -218,6 +245,8 @@ class App extends Component {
             
         return (
             <main>
+                {!this.state.appear}
+              
             
             <div className="cesiumGlobeWrapper" style={containerStyle}>
                 
@@ -234,15 +263,19 @@ class App extends Component {
                 </form> 
                 
             </div>
+            
             <Navigation userInSession={this.state.loggedInUser} setTheUser={this.setUser} />
             <Switch>
-            <Route path="/post" render={() => <PostForm loadPoints={(data)=> this.loadPoints(data)} setTheUser={this.setUser} />} />
+            <Route path="/post" render={() => <PostForm loadPointsFromSon={this.loadPointsFromSon} setTheUser={this.setUser} />} />
             </Switch> 
             </main>
         )}else{
             
             return(
+
             <main>
+            {this.state.appear &&
+            <Intro/> }
             <div className="cesiumGlobeWrapper" style={containerStyle}>
                 
                 <div
@@ -258,15 +291,16 @@ class App extends Component {
                 </div> 
                 
             </div>
+        
+
             
             <Navigation userInSession={this.state.loggedInUser}/>
+            <div class="footer"></div>
            
             <Switch>
             <Route path="/signup" render={() => <Signup setTheUser={this.setUser} />} />
             <Route path="/login" render={() => <Login setTheUser={this.setUser} />} />
             </Switch>
-            
-           
             </main>
             )
         }
