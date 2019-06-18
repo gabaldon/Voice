@@ -295,7 +295,7 @@ class App extends Component {
 
             
             <Navigation userInSession={this.state.loggedInUser}/>
-            <div class="footer"></div>
+            <div className="footer"></div>
            
             <Switch>
             <Route path="/signup" render={() => <Signup setTheUser={this.setUser} />} />
