@@ -30,7 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // configuracion middleware CORS
-const whitelist = ['http://localhost:3000']
+const whitelist = ['http://localhost:3000',"https://u-voice.herokuapp.com"]
 const corsOptions = {
   credentials: true,
   origin: (origin, cb) => {
