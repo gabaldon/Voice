@@ -125,9 +125,17 @@ class App extends Component {
                         console.log(post.audio)
                         console.log(post.description)
                         
-                        new Audio(post.audio).play()
+                        let audio = new Audio(post.audio)
+                        let playPromise = audio.play()
                         .then(res => console.log(res))  
-                        .catch(err => console.log(err))
+                        if(playPromise !== null) {
+                            playPromise.catch(err => {
+                                console.log(err)
+                                audio.play()
+                            })
+    
+                        }
+
                     } else {
                         
                         entity.point.pixelSize = 5;
