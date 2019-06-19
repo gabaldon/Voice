@@ -14,6 +14,7 @@ class Login extends Component {
             username: '', 
             password: '',
             movein:false,
+            error: false,
         }
         this.services = new AuthServices()
         this.handleClose = this.handleClose.bind(this)
@@ -50,8 +51,17 @@ class Login extends Component {
                     this.props.setTheUser(response)
                 })
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                this.setState({error: error.response.data.message})
+            })
     }
+    validation = () =>{
+        if(this.state.error){
+            return <p className="error">{this.state.error}</p>
+        }
+        
+    } 
 
     render() {
         return (
@@ -68,7 +78,7 @@ class Login extends Component {
                     <label htmlFor="password"></label>
                     <input onChange={this.handleChange} value={this.state.password} type="password" className="form-control" id="password" name="password" placeholder="Password"/>
                 </div>
-
+                {this.validation()}
                 <button type="submit" className="form-group row btn-access"></button>
                 <Link to="/signup" className="form-group SignupLink row">If you don´t have an account Sign Up</Link>
             </form>

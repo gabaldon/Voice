@@ -101,9 +101,13 @@ class App extends Component {
                         outlineWidth : 3 // default: 0
                     },
                     polyline :{
+                        positions : Cesium.Cartesian3.fromDegreesArray([
+                            long, lat,
+                            long, lat
+                        ]),
                         width : 2
                     },
-                    description: post.description
+                    description: `<h3 style='max-height: 648px; height: 60px;color: grey; text-align: center'>${post.description}</h3>`
                     
                 });
                 
@@ -118,6 +122,8 @@ class App extends Component {
                         console.log(pickedObject)
                         let audioUrl = post.audio
                         console.log(post.audio)
+                        console.log(post.description)
+                        
                         new Audio(audioUrl).play().then(res => console.log(res))  
                     } else {
                         
@@ -151,7 +157,7 @@ class App extends Component {
                 useDepthPicking:true,
                 geocoder : false,
                 homeButton : false,
-                infoBox : false,
+                infoBox : true,
                 sceneModePicker : false,
                 requestRenderMode: true,
                 selectionIndicator : false,

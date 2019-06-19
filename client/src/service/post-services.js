@@ -6,6 +6,7 @@ export default class services {
 
         this.service = axios.create({
             baseURL: process.env.REACT_APP_URL
+            // baseURL: 'http://localhost:8000/api/'
         })
     }
 

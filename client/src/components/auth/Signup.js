@@ -6,7 +6,7 @@ class Signup extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { username: '', password: '', redirect: false , movein:false,}
+        this.state = { username: '', password: '', error: false, redirect: false , movein:false,}
         this.services = new AuthServices()
         this.handleClose = this.handleClose.bind(this)
        
@@ -34,9 +34,19 @@ class Signup extends Component {
                 this.props.setTheUser(response)
             })
         })
-        .catch(error => console.log({error}))
+        .catch(error => {
+            
+            this.setState({error: error.response.data.message})
+            console.log("Este es el error",error.response.data.message)
+        })
     }
-    
+
+    validation = () =>{
+        if(this.state.error){
+            return <p className="error">{this.state.error}</p>
+        }
+        
+    }    
     render() {
         return (
             <div className="loginContainer">
@@ -52,6 +62,7 @@ class Signup extends Component {
                     <label htmlFor="password"></label>
                     <input onChange={this.handleChange} value={this.state.password} type="password" className="form-control" id="password" name="password" placeholder="Password"/>
                 </div>
+                {this.validation()}
                 <button type="submit" className="form-group row btn-access"></button>
                 <Link to="/login" className="form-group SignupLink row">Back to Log in</Link>
             </form>

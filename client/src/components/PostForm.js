@@ -7,7 +7,6 @@ import Example from './ReactMic'
 // import ReactMic from './react-mic/React-micf'
 
 
-
 export default class PostForm extends Component {
 
     constructor(props) {
@@ -29,6 +28,7 @@ export default class PostForm extends Component {
                     },
             show: true,
             movein:false,
+            error: false,
             
         }
         this.services = new PostServices()
@@ -125,9 +125,10 @@ export default class PostForm extends Component {
                 this.props.loadPointsFromSon()
                 this.setState({ redirect: true }, () => {
                     this.setPost(response)
+                    console.log("Post Submited!")
                 })
             })
-            .catch(error => console.log(error.response.data.message))
+        .catch(error => console.log(error.response.data.message))
     }
      
     
@@ -143,6 +144,7 @@ export default class PostForm extends Component {
                     <label className="description-title" htmlFor="description"></label>
                     <input onChange={(e) => this.handlechange(e)} value={this.state.postform.description} type="text" className="row" id="description" name="description" placeholder="Write a description" />
                 </div>
+               
                 <button className="post-form-it geolocation-btn  row" type="button" onClick={this.getMyLocation} ></button>
                 <Example className="post-form-it mic-container  row" handleFileUpload={url => this.handleFileUpload(url)}/>
                 {this.state.postform.audio &&
