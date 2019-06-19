@@ -3,7 +3,7 @@ require('dotenv').config();
 
 // .connect(process.env.DB, {useNewUrlParser: true})
 mongoose
-  .connect(`mongodb://localhost/server`, {useNewUrlParser: true})
+  .connect(process.env.DB, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
