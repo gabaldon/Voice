@@ -37,16 +37,15 @@ export class Example extends Component {
     render() {
       return (
         <div className="mic-container">
-          <ReactMic
-            record={this.state.record}
-            className="sound-wave row"
-            onStop={this.sendFileToCloudinary}
-            strokeColor="rgb(18, 247, 10)"
-            backgroundColor="#00000000" />
-          <div className="row">
-          <button onClick={this.startRecording} className="voice-recording-btn" type="button"></button>
-          <button onClick={this.stopRecording} className="stop-voice-recording-btn" type="button"></button>
-          </div>
+         	<p>
+      			<button id="record">Record</button>
+      			<button id="stopRecord" disabled>Stop</button>
+      		</p>
+      		<p>
+      			<audio controls id="recordedAudio"></audio>
+      	
+      		</p>
+          <script src="prueba.js"></script>
         </div>
       );
     }
