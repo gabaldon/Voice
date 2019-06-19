@@ -120,15 +120,15 @@ export default class PostForm extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-            this.services.postPost(this.state.postform)
-            .then(response => {
-                this.props.loadPointsFromSon()
-                this.setState({ redirect: true }, () => {
-                    this.setPost(response)
-                    console.log("Post Submited!")
-                })
-            })
-            .catch(error => console.log(error))
+            // this.services.postPost(this.state.postform)
+            // .then(response => {
+            //     this.props.loadPointsFromSon()
+            //     this.setState({ redirect: true }, () => {
+            //         this.setPost(response)
+            //         console.log("Post Submited!")
+            //     })
+            // })
+            // .catch(error => console.log(error))
     }
      
     
