@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
-import { ReactMic } from 'react-mic';
+// import { ReactMic } from 'react-mic';
 
 export class Example extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        record: false,
-        url: ''
+        audioChunks: [],
+        rec: undefined,
+        recordedAudio: undefined,
+        record: undefined,
+        stop: undefined,
+        url: "",
       }
 
     }
@@ -14,17 +18,16 @@ export class Example extends Component {
     componentDidMount(){
       navigator.mediaDevices.getUserMedia({audio:true})
       .then(stream => {this.handlerFunction(stream)})
-
-
        
     }
 
     handlerFunction = (stream) => {
-      rec = new MediaRecorder(stream);
-      rec.ondataavailable = e => {
-        audioChunks.push(e.data);
-        if (rec.state == "inactive"){
-          let blob = new Blob(audioChunks,{type:'audio/mpeg-3'});
+      this.setState({rec: new MediaRecorder(stream)})
+      this.state.rec.ondataavailable = e => {
+        this.state.audioChunks.push(e.data);
+        if (this.state.rec.state == "inactive"){
+          let blob = new Blob(this.state.audioChunks,{type:'audio/mpeg-3'});
+          let recordedAudio = document.getElementById("recordedAudio")
           recordedAudio.src = URL.createObjectURL(blob);
           recordedAudio.controls=true;
           recordedAudio.autoplay=true;
@@ -48,38 +51,46 @@ export class Example extends Component {
     // }
 
    
-    rec = e => {
-      let record = e.target
-      console.log('I was clicked')
-      record.disabled = true;
-      record.style.backgroundColor = "blue"
-      stopRecord.disabled=false;
-      audioChunks = [];
-      rec.start();
-    }
-    
-    stop = e => {
-      let record = e.target
-      console.log("I was clicked")
-      record.disabled = false;
-      stop.disabled=true;
-      record.style.backgroundColor = "red"
-      rec.stop();
-    }
+  rec = e => {
+    e.preventDefault()
+    let record = document.getElementById("record")
+    let stop = document.getElementById("stopRecord")
+      
+    console.log('I was clicked')
+    // record.disabled = true;
+    record.style.backgroundColor = "blue"
+    // stop.disabled = false;
+    this.state.rec.start()
+  }
+
+  stop = e => {
+    e.preventDefault()
+
+    let record = document.getElementById("record")
+    let stop = document.getElementById("stopRecord")
+
+    console.log("I was clicked")
+    // record.disabled = false;
+    // stop.disabled=false;
+    record.style.backgroundColor = "red"
+    this.state.rec.stop();
+  }
  
 
-    sendFileToCloudinary = (recordedBlob) => {
-      console.log("se envia ahora a coludi")
-      this.setState({ url: recordedBlob });
-      this.props.handleFileUpload(this.state.url)
+  sendFileToCloudinary = (recordedBlob) => {
+    console.log(recordedBlob)
+    console.log("se envia ahora a cloudi")
+    this.setState({ url: recordedBlob });
+    this.props.handleFileUpload(recordedBlob)
   }
 
     render() {
+      
       return (
         <div className="mic-container">
          	<p>
       			<button id="record" onClick={this.rec}>Record</button>
-      			<button id="stopRecord" onClick={this.stop} disabled>Stop</button>
+      			<button id="stopRecord" onClick={this.stop}>Stop</button>
       		</p>
       		<p>
       			<audio controls id="recordedAudio"></audio>

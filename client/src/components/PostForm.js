@@ -66,11 +66,12 @@ export default class PostForm extends Component {
 
     handleFileUpload = (url) => {
 
+
         // console.log("This is the Form data ",FormData)
-        // console.log("This is the Blob ",url)
+         console.log("This is the Blob ",url)
        
         let uploadData = new FormData();
-        uploadData.append("blob", url.blob);
+        uploadData.append("blob", url);
 
         // console.log("This is the Blob ",url)
         // console.log(uploadData)
@@ -120,15 +121,15 @@ export default class PostForm extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-            // this.services.postPost(this.state.postform)
-            // .then(response => {
-            //     this.props.loadPointsFromSon()
-            //     this.setState({ redirect: true }, () => {
-            //         this.setPost(response)
-            //         console.log("Post Submited!")
-            //     })
-            // })
-            // .catch(error => console.log(error))
+            this.services.postPost(this.state.postform)
+            .then(response => {
+                this.props.loadPointsFromSon()
+                this.setState({ redirect: true }, () => {
+                    this.setPost(response)
+                    console.log("Post Submited!")
+                })
+            })
+            .catch(error => console.log(error))
     }
      
     
@@ -149,7 +150,7 @@ export default class PostForm extends Component {
                 <Example className="post-form-it mic-container  row" handleFileUpload={url => this.handleFileUpload(url)}/>
                 {this.state.postform.audio &&
                 <div className="row">
-                    <audio className="post-form-it audio-controls  row" autoplay muted loop controls src={this.state.postform.audio}/>
+                    <audio className="post-form-it audio-controls  row" controls src={this.state.postform.audio}/>
                     <button type="submit" className="btn-post post-form-it row" ></button>
                 </div>
                 }
