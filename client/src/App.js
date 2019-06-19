@@ -127,7 +127,12 @@ class App extends Component {
 
                         let audio = new Audio()
                         audio.src = post.audio
+                        audio.muted = true
                         console.log(audio)
+                        
+                        audio.play()
+                        new Audio(post.audio).play()
+
 
                         let playPromise = audio.play()
                         .then(x => console.log("Se ha reproducido"))  
