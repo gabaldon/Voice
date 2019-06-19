@@ -149,7 +149,7 @@ export default class PostForm extends Component {
                 <Example className="post-form-it mic-container  row" handleFileUpload={url => this.handleFileUpload(url)}/>
                 {this.state.postform.audio &&
                 <div className="row">
-                    <audio className="post-form-it audio-controls  row" controls src={this.state.postform.audio}/>
+                    <audio className="post-form-it audio-controls  row" autoplay muted loop controls src={this.state.postform.audio}/>
                     <button type="submit" className="btn-post post-form-it row" ></button>
                 </div>
                 }

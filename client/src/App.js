@@ -121,20 +121,21 @@ class App extends Component {
                     if (Cesium.defined(pickedObject) && (pickedObject.id === entity)) {
                         entity.point.pixelSize = 10;
                         console.log(pickedObject)
-
                         console.log(post.audio)
                         console.log(post.description)
-                        
-                        let audio = new Audio(post.audio)
+
+
+                        let audio = new Audio()
+                        audio.src = post.audio
+                        console.log(audio)
+
                         let playPromise = audio.play()
-                        .then(res => console.log(res))  
-                        if(playPromise !== null) {
-                            playPromise.catch(err => {
+                        .then(x => console.log("Se ha reproducido"))  
+                        .catch(err => {
                                 console.log(err)
+                                console.log(audio)
                                 audio.play()
                             })
-    
-                        }
 
                     } else {
                         
