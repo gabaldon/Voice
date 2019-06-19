@@ -128,7 +128,7 @@ export default class PostForm extends Component {
                     console.log("Post Submited!")
                 })
             })
-        .catch(error => console.log(error.response.data.message))
+            .catch(error => console.log(error))
     }
      
     

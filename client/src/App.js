@@ -81,6 +81,7 @@ class App extends Component {
             this.viewer.entities.removeAll()
             this.loadPoints(this.state.data)
     })
+    .catch(err => console.log(err))
 
     }  
     
