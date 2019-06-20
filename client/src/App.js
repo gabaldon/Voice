@@ -60,7 +60,9 @@ class App extends Component {
     loadPoints = (data) => {
         data.forEach(post =>{
             var long = post.longitude
+            console.log(post.long)
             var lat = post.latitude
+            console.log(post.lat)
             let entity = this.viewer.entities.add({
                 position : Cartesian3.fromDegrees(
                     long,
@@ -73,13 +75,7 @@ class App extends Component {
                         outlineColor : Color.SPRINGGREEN , 
                         outlineWidth : 3 
                     },
-                    polyline :{
-                        positions : Cesium.Cartesian3.fromDegreesArray([
-                            long, lat,
-                            long, lat
-                        ]),
-                        width : 2
-                    },
+                    
                     description: `<h3 style='max-height: 648px; height: 60px;color: grey; text-align: center'>${post.description}</h3>`
                     
             });
