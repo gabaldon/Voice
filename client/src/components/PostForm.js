@@ -1,48 +1,34 @@
 import React, { Component } from 'react'
 import PostServices from '../service/post-services'
-// import Modal from 'react-bootstrap/Modal'
 import { Redirect } from 'react-router-dom'
-// import RecorderManager from '../recorder'
 import Example from './ReactMic'
-// import ReactMic from './react-mic/React-micf'
-
 
 export default class PostForm extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            
             postform: {   
-            
-              
-                    type: "Point", 
-                    longitude: 0,
-                    latitude: 0,
-                    description: '',
-                    audio: '',
-                    color: ''
-                
-    
-            
-                    },
+                type: "Point", 
+                longitude: 0,
+                latitude: 0,
+                description: '',
+                audio: '',
+                color: ''
+            },
             show: true,
             movein:false,
-            error: false,
-            
+            error: false, 
         }
         this.services = new PostServices()
         this.handleShow = this.handleShow.bind(this)
         this.handleClose = this.handleClose.bind(this)
-        this.getMyLocation = this.getMyLocation.bind(this);
-        
+        this.getMyLocation = this.getMyLocation.bind(this)
     }
-    // componentDidMount() {
-    //     this.getMyLocation()
-    //   }
+  
     componentDidMount() {
         setInterval(() => this.setState({ movein: !this.state.loading }), 100);
-      }
+    }
 
     getMyLocation() {
         const location = window.navigator && window.navigator.geolocation
@@ -55,26 +41,19 @@ export default class PostForm extends Component {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                 }               
-        })
+            })
           }, (error) => {
               console.log(error)
-            
           })
         }
-    
-      }
+    }
 
     handleFileUpload = (url) => {
 
-
-        // console.log("This is the Form data ",FormData)
-         console.log("This is the Blob ",url)
+        console.log("This is the Blob ",url)
        
         let uploadData = new FormData();
         uploadData.append("blob", url);
-
-        // console.log("This is the Blob ",url)
-        // console.log(uploadData)
 
         this.services.handleUpload(uploadData)
             .then(response => {
@@ -89,22 +68,12 @@ export default class PostForm extends Component {
             .catch(err => console.log(err))
     }
     
-
-    handleClose = () => this.setState({ show: false ,
-    
+    handleClose = () => this.setState({ 
+        show: false ,
         redirect: true
     })
+
     handleShow = () => this.setState({ show: true })
-
-    // handlechange = (e, key) => {
-    //     const { name, value } = e.target
-
-    //     const _postform = {...this.state.postform};
-    //     _postform[key][name] = value;
-    //     this.setState({
-    //         postform: _postform
-    //     }, () => {console.log(this.state)})
-    // }
 
     handlechange = e => {
         const { name, value } = e.target
@@ -114,28 +83,25 @@ export default class PostForm extends Component {
                 [name]: value
             }
         })
-        // this.props.loadPoints(this.props.data)
     }
 
     setPost = postObj => this.setState({ postform: postObj })
 
     handleSubmit = e => {
         e.preventDefault()
-            this.services.postPost(this.state.postform)
-            .then(response => {
-                this.props.loadPointsFromSon()
-                this.setState({ redirect: true }, () => {
-                    this.setPost(response)
-                    console.log("Post Submited!")
-                })
+        this.services.postPost(this.state.postform)
+        .then(response => {
+            this.props.loadPointsFromSon()
+            this.setState({ redirect: true }, () => {
+                this.setPost(response)
+                console.log("Post Submited!")
             })
-            .catch(error => console.log(error))
+        })
+        .catch(error => console.log(error))
     }
      
-    
     render(){
-        // this.setState({postform:{latitude: latitude, longitude: longitude}})
-        // const recorder = RecorderManager.create()
+        
         return(
             <div>
              {this.state.redirect ? <Redirect to='/'></Redirect> : null}
@@ -145,13 +111,11 @@ export default class PostForm extends Component {
                     <label className="description-title" htmlFor="description"></label>
                     <input onChange={(e) => this.handlechange(e)} value={this.state.postform.description} type="text" className="row" id="description" name="description" placeholder="Write a description" />
                 </div>
-               
-                <button className="post-form-it geolocation-btn  row" type="button" onClick={this.getMyLocation} ></button>
+                <button  className="post-form-it geolocation-btn  row" type="button" onClick={this.getMyLocation} title="Get my location"></button>
                 <Example className="post-form-it mic-container  row" handleFileUpload={url => this.handleFileUpload(url)}/>
                 {this.state.postform.audio &&
                 <div className="row">
-                    <audio className="post-form-it audio-controls  row" controls src={this.state.postform.audio}/>
-                    <button type="submit" className="btn-post post-form-it row" ></button>
+                    <button title="Submit" type="submit" className="btn-post post-form-it row" ></button>
                 </div>
                 }
             </form>
@@ -163,24 +127,3 @@ export default class PostForm extends Component {
 
 
 }
-
-// { "type": "FeatureCollection",
-
-//     "features": [{ 
-        
-//         "type": "Feature",
-//         "geometry": {
-//             "type": "Point", 
-//             "coordinates": [
-//                 {"long": Number, 
-//                 "lat": Number}
-//             ] },
-
-//         "properties": {
-//             "description": String,
-//             "audio": String,
-//             "color": String
-//         }
-
-//       }]
-// }

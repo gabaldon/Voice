@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import AuthServices from '../../service/auth-services'
 import { Link, Redirect } from 'react-router-dom'
-// import Modal from 'react-bootstrap/Modal'
-
 
 class Login extends Component {
 
@@ -18,17 +16,11 @@ class Login extends Component {
         }
         this.services = new AuthServices()
         this.handleClose = this.handleClose.bind(this)
-        // MODAL
-        // this.handleShow = this.handleShow.bind(this)
-        // this.handleClose = this.handleClose.bind(this)
     }
 
     componentDidMount() {
         setInterval(() => this.setState({ movein: !this.state.loading }), 100);
-      }
-    // MODAL
-    // handleClose = () => this.setState({ show: false })
-    // handleShow = () => this.setState({ show: true })
+    }
 
     handleChange = e => {
         console.log(e)
@@ -60,7 +52,6 @@ class Login extends Component {
         if(this.state.error){
             return <p className="error">{this.state.error}</p>
         }
-        
     } 
 
     render() {

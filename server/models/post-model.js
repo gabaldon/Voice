@@ -16,22 +16,3 @@ const postSchema = new Schema(
 
 const Post = mongoose.model('Post', postSchema)
 module.exports = Post
-
-// { type: String,
-
-//     features: [{ 
-       
-//         type: String,
-//         geometry: {
-//            type: String, 
-//            coordinates: String
-//        },
-
-//        properties: {
-//            description: String,
-//            audio: String,
-//            color: String
-//        }
-
-//      }]
-// }

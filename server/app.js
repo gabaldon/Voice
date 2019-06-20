@@ -8,13 +8,9 @@ const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
-
-
-
 require('./configs/passport.config')
 require('./configs/mongoose.config')
 require('./configs/cloudinary.config')
-
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -39,22 +35,14 @@ const corsOptions = {
   }
 }
 app.use(cors(corsOptions))
-
-
-
-// Middleware Setup
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-//
 app.use(express.static(path.join(__dirname, 'public')));
 
-// default value for title local
 app.locals.title = 'Ways';
 
-// Middleware subida de archivos Cloudinary
 const fileRoutes = require('./routes/file-upload.routes')
 app.use('/api', fileRoutes);
 
@@ -63,9 +51,5 @@ app.use('/api', coasterRoutes)
 
 const authRoutes = require('./routes/auth.routes');
 app.use('/api', authRoutes);
-
-
-app.use((req, res) => {     res.sendFile(__dirname + "/public/index.html");    })
-
-
+app.use((req, res) => {res.sendFile(__dirname + "/public/index.html")})
 module.exports = app;

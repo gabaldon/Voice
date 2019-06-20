@@ -1,11 +1,8 @@
 const express = require('express');
 const authRoutes = express.Router();
-
 const passport = require('passport');
 const bcrypt = require('bcrypt');
-
 const User = require('../models/user-model');
-
 
 authRoutes.post('/signup', (req, res, next) => {
     const username = req.body.username;
@@ -47,8 +44,7 @@ authRoutes.post('/signup', (req, res, next) => {
                 return;
             }
 
-            // Automatically log in user after sign up
-            // .login() here is actually predefined passport method
+          
             req.login(aNewUser, (err) => {
 
                 if (err) {
@@ -56,16 +52,12 @@ authRoutes.post('/signup', (req, res, next) => {
                     return;
                 }
 
-                // Send the user's information to the frontend
-                // We can use also: res.status(200).json(req.user);
                 res.status(200).json(req.user)
-                // res.status(200).json(aNewUser);
+                
             });
         });
     });
 });
-
-
 
 authRoutes.post('/login', (req, res, next) => {
     passport.authenticate(('local'), (err, theUser, failureDetails) => {
@@ -76,33 +68,24 @@ authRoutes.post('/login', (req, res, next) => {
         }
 
         if (!theUser) {
-            // "failureDetails" contains the error messages
-            // from our logic in "LocalStrategy" { message: '...' }.
+            
             res.status(401).json(failureDetails);
             return;
         }
-
-        // save user in session
         req.login(theUser, (err) => {
             if (err) {
                 res.status(500).json({ message: 'Session save went bad.' });
                 return;
             }
-
-            // We are now logged in (that's why we can also send req.user)
             res.status(200).json(theUser);
-            
-            
         });
     })(req, res, next);
 });
-
 
 authRoutes.post('/logout', (req, res, next) => {
     req.logout();
     res.status(200).json({ message: 'Log out success!' });
 });
-
 
 authRoutes.get('/loggedin', (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -111,7 +94,4 @@ authRoutes.get('/loggedin', (req, res, next) => {
     }
     res.status(403).json({ message: 'Unauthorized' });
 });
-
-
-
 module.exports = authRoutes;

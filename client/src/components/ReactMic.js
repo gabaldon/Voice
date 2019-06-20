@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { ReactMic } from 'react-mic';
 
 export class Example extends Component {
     constructor(props) {
@@ -11,6 +10,7 @@ export class Example extends Component {
         record: undefined,
         stop: undefined,
         url: "",
+        pulse: false,
       }
 
     }
@@ -25,7 +25,7 @@ export class Example extends Component {
       this.setState({rec: new MediaRecorder(stream)})
       this.state.rec.ondataavailable = e => {
         this.state.audioChunks.push(e.data);
-        if (this.state.rec.state == "inactive"){
+        if (this.state.rec.state === "inactive"){
           let blob = new Blob(this.state.audioChunks,{type:'audio/mpeg-3'});
           let recordedAudio = document.getElementById("recordedAudio")
           recordedAudio.src = URL.createObjectURL(blob);
@@ -36,31 +36,13 @@ export class Example extends Component {
       }
     }
 
-    // startRecording = () => {
-    //   console.log("COMIENZA A GRABAR")
-    //   this.setState({
-    //     record: true
-    //   });
-    // }
-  
-    // stopRecording = () => {
-    //   console.log("para de A GRABAR")
-    //   this.setState({
-    //     record: false
-    //   });
-    // }
-
-   
   rec = e => {
     e.preventDefault()
     let record = document.getElementById("record")
     let stop = document.getElementById("stopRecord")
-      
     console.log('I was clicked')
-    // record.disabled = true;
-    record.style.backgroundColor = "blue"
-    // stop.disabled = false;
     this.state.rec.start()
+    this.setState({ pulse: true })
   }
 
   stop = e => {
@@ -68,14 +50,10 @@ export class Example extends Component {
 
     let record = document.getElementById("record")
     let stop = document.getElementById("stopRecord")
-
     console.log("I was clicked")
-    // record.disabled = false;
-    // stop.disabled=false;
-    record.style.backgroundColor = "red"
     this.state.rec.stop();
+    this.setState({ pulse: false })
   }
- 
 
   sendFileToCloudinary = (recordedBlob) => {
     console.log(recordedBlob)
@@ -84,21 +62,21 @@ export class Example extends Component {
     this.props.handleFileUpload(recordedBlob)
   }
 
-    render() {
+  render() {
+    return (
+      <div className="mic-container">
       
-      return (
-        <div className="mic-container">
-         	<p>
-      			<button id="record" onClick={this.rec}>Record</button>
-      			<button id="stopRecord" onClick={this.stop}>Stop</button>
-      		</p>
-      		<p>
-      			<audio controls id="recordedAudio"></audio>
-      	
-      		</p>
-        </div>
-      );
-    }
+        <p>
+          <button id="record" className={`voice-recording-btn ${this.state.pulse? 'pulse-rec' : '' }`} title="Start recording" onClick={this.rec}></button>
+          <button id="stopRecord" className="stop-voice-recording-btn" title="Stop recording" onClick={this.stop}></button>
+        </p>
+        <p>
+          <audio controls id="recordedAudio"></audio>
+      
+        </p>
+      </div>
+    );
   }
+}
 
 export default Example

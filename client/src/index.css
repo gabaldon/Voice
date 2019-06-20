@@ -4,19 +4,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 main{
   width: 100vw;
   height: 100vh;
 }
-
-
+button:hover{
+  cursor:pointer;
+}
+.link:hover{
+  cursor:pointer;
+}
 .cesium-viewer-infoBoxContainer{
 background-color: rgb(255, 235, 205);
 top: 200px;
 left: 30px;
 z-index: 1;
-
 }
 .cesium-infoBox{
   background-color: rgb(255, 235, 205);
@@ -25,45 +27,46 @@ z-index: 1;
   box-shadow: 2px 2px 4px rgb(18, 247, 10);
   border:0;
   color: rgb(255, 235, 205);
-  
 }
 .cesium-infoBox-title{
   background-color: rgb(255, 235, 205);
- 
-  
 }
 .cesium-infoBox-iframe{
-  
   background-color: rgb(255, 235, 205);
-  
- 
-  
 }
-.description{
-
-}
-
-
 /* NAV BAR */
 
-
-
+#logo {
+  height: 100px;
+  width: 200px;
+  left: 30px;
+  top: 0px;
+  position: fixed;
+  fill:none;
+  stroke:#12f70a;
+  stroke-width:0.4px;
+}
+.logo{
+  left: 30px;
+  top: 0px;
+  position: fixed;
+  height: 60px;
+  width: 200px;
+}
 .wave {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
 }
-
 #wave {
-  position:absolute;
-  top: 80px;
-  left: 55px;
+  position:fixed;
+  top: 95px;
+  left: 95px;
 	height: 70px;
 	width: 70px;
 	fill: rgb(18, 247, 10);
 }
-
 #Line_1{
   animation: pulse 1s infinite;
 	animation-delay: .15s;
@@ -101,42 +104,34 @@ z-index: 1;
   animation: pulse 1s infinite;
 	animation-delay: .95s;
 }
-
-
-
+@keyframes pulseRec {
+  
+  0% {
+      box-shadow: 0 0 0 0px rgba(18, 247, 10, 0.685);
+  }
+  100% {
+      box-shadow: 0 0 0 7px rgba(18, 247, 10, 0.685);
+  }
+}
 @keyframes pulse {
 	0% {
 		transform: scaleY(1);
 		transform-origin: 50% 50%;
 	}
-	
 	50% {
 		transform: scaleY(.7);
 		transform-origin: 50% 50%;
 	}
-	
 	100% {
 		transform: scaleY(1);
 		transform-origin: 50% 50%;
 	}
 }
-
 .navBar {
   position: absolute;
   z-index: 2;
  
   width: 100vw;
-}
-h1{
-  color:rgb(18, 247, 10);
-  left: 30px;
-  top: 0px;
-  font-family: 'Friz Quadrata Regular OS';
-  position: fixed;
-  font-size: 50px;
-  -webkit-text-fill-color: rgba(255, 255, 255, 0); /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: rgb(18, 247, 10);
 }
 a {
   text-decoration: none;
@@ -150,11 +145,10 @@ a:hover{
 .navBar a{
   position: fixed;
   z-index: 2;
- top:20px;
+  top:20px;
   right: 20px;
   font-size: 1.5em;
 }
-
 .logout-btn{
   text-decoration: none;
   color: white;
@@ -178,16 +172,13 @@ a:hover{
   flex-wrap: wrap;
   width: 100%; }
 
-
 /* SEARCH BAR */
 
 .SearchBar{
   z-index: 2;
   position:fixed;
   left: 42vw;
-  padding-top: 20px;
-  
-  
+  padding-top: 20px; 
 }
 .SearchBar input{
   border: 0;
@@ -207,7 +198,6 @@ a:hover{
   background-size: 27px 23px;
   background-repeat: no-repeat;
 }
-
 ::placeholder { 
   color:white;
   opacity: 1; 
@@ -217,17 +207,18 @@ a:hover{
 .SearchBar input:focus{
   outline: none;
 }
+button.cesium-infoBox-close:active {
+  background-color: rgb(255, 235, 205);
+  color: white;
+}
+.cesium-button:active{
+  background-color: rgb(255, 235, 205);
+  border-bottom-color: rgb(255, 235, 205);
+}
 
 /* SIGN UP / LOG IN */
 
-/* .signUp{
-  margin-top: 100px;
-  position: absolute;
-  z-index: 2;
-} */
 .loginForm{
- 
-  
   width: 350px;
   height: 500px;
   z-index: 2;
@@ -241,15 +232,12 @@ a:hover{
   justify-content: center;
   align-items: center;
 }
-
 .move-in-right {
   transform: translateX(-108vw); 
-  
 }
 .login{
   margin: 0 auto;
   width: 225px;
-  
 }
 .form-group{
   padding: 20px;
@@ -270,19 +258,14 @@ a:hover{
   font-size: 1em;
   font-weight: 700;
   padding-left: 10px;
-  
 }
 .form-control::placeholder { 
   color: rgb(138, 136, 136);
   opacity: 1; 
-  
   text-shadow: none;
 }
-
 .form-control:focus{
-  
-    outline: none;
-  
+  outline: none;
 }
 .btn-access{
   border: none;
@@ -300,7 +283,6 @@ a:hover{
 }
 .signUpLink{
   font-size: .5em;
-  
 }
 .btn-close{
   border: none;
@@ -314,7 +296,6 @@ a:hover{
 }
 .btn-close:hover{
   cursor:pointer;
-  
 }
 
 /* POST FORM */
@@ -331,7 +312,6 @@ a:hover{
   border-radius: 25px;
   border: rgb(18, 247, 10);
   text-align: center;
-  
 }
 .post-form-it{
   padding: 15px;
@@ -350,18 +330,15 @@ a:hover{
   font-weight: 700;
   font-size: 15px;
 }
-
 .description input:focus{
   outline: none;
 }
-
 .description input::placeholder { 
   color: rgb(73, 73, 73);
   opacity: 1; 
   font-weight: 700;
   text-shadow: none;
 }
-
 .btn-send{
   border:none;
   outline:none;
@@ -384,16 +361,9 @@ a:hover{
   width: 50px;
   box-shadow: 1px 1px 3px rgb(73, 73, 73)
 }
-.audio-controls{
-  height: 50%;
- 
-
-}
-
 .audio-controls:focus{
   outline: none;
 }
-
 .voice-recording-btn{
   border: none;
   outline:none;
@@ -410,25 +380,26 @@ a:hover{
   background-position-x: 50%;
   box-shadow: 1px 1px 3px rgb(73, 73, 73)
 }
-/* .mic-container{
-  align-content: center;
-  justify-content: center;
-} */
+.pulse-rec{
+  animation: pulseRec 1s infinite;
+	animation-delay: .15s;
+}
 .stop-voice-recording-btn{
   border: none;
   outline:none;
-  border-radius: 50%;
   background: rgba(0, 0, 0, 0);
   background-image: url('./img/stop-button.svg');
   background-repeat: no-repeat;
-  background-position: 0%;
-  background-position-x: 50%;
-  background-size: 20px;
+  background-size: 24px;
+  height: 50px;
   width: 50px;
   margin: 15px;
-  box-shadow: 1px 1px 3px rgb(73, 73, 73);
+  padding-right: 10px;
+  border-radius: 50%;
+  background-position: 0%;
+  background-position-x: 50%;
+  box-shadow: 1px 1px 3px rgb(73, 73, 73)
 }
-
 .btn-post{
   border: none;
   outline:none;
@@ -439,71 +410,46 @@ a:hover{
   background-position-x: 50%;
   background-size: 60px;
 }
-
-button:hover{
-  cursor:pointer;
-}
-
-
 .btn-close:hover{
-  cursor:pointer;
-  
+  cursor:pointer; 
 }
-
 .post-container form{
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .sound-wave{
-
-  /* width: 640px; */
   height: 100px;
- 
 }
 
 /* INTRO */
 
 .intro-bg {
-  /* display:none; */
   background-color: rgb(255, 235, 205);
   color: rgb(18, 247, 10);
   transition: all 2s;
   z-index: 5;
   opacity: 1;
   position: fixed;
-  /* Stay in place */
   left: 0;
   top: 0;
   width: 100vw;
-  /* Full width */
   height: 100vh;
-  /* Full height */
   overflow: auto;
-  /* Enable scroll if needed */
   text-align: center;
   display: flex;
   align-content: center;
   justify-content: center;
   text-align: center;
-  
 }
-
-#intro-h1{
-  color:rgb(18, 247, 10);
+#logo-intro {
+  width: 300px;
   position: relative;
-  font-family: 'Friz Quadrata Regular OS';
-  z-index: 2;
-  font-size: 50px;
-  -webkit-text-fill-color: rgba(255, 255, 255, 0); /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: rgb(18, 247, 10);
-  font-size: 100px;
-  margin:0;
-  top:0;
- left:0px;
+  fill: none;
+  stroke: #12f70a;
+  stroke-width: 0.4px;
 }
+.st0{fill:none;stroke:#12F70A;stroke-width:0.4;}
 .intro-bg #wave{
   position: relative;
   fill: rgb(18, 247, 10);
@@ -512,7 +458,6 @@ button:hover{
  left:0px;
  width: 100px;
 }
-
 .demo7 {
   background-color: rgb(255, 235, 205);
   position: absolute;
@@ -531,7 +476,6 @@ header p{
   font-weight: 700;
   color: rgb(146, 145, 145);
   font-size: 20px;
-  /* text-shadow: 1px 1px 3px rgb(73, 73, 73); */
 }
 .cesium-viewer .cesium-widget-credits {
   display:none;
@@ -541,8 +485,6 @@ header p{
   text-align: center;
   padding-bottom: 5px;
 }
-
-  
 @media (max-width: 600px) {
   .SearchBar{
     left: 10vw;
@@ -552,17 +494,14 @@ header p{
   .move-in-right{
     transform: translateX(-74vw); 
   }
-  .loginForm{
-    top:21vh;
+  .navBar a {
+    position: fixed;
+    z-index: 2;
+    top: 50px;
+    right: 20px;
+    font-size: 1.5em;
   }
-  /* .post-container{
-
-  } */
-
+  .loginForm{
+    top:15vh;
+  }
 }
-  
-
-
-
-
-
