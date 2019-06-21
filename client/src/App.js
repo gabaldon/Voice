@@ -219,7 +219,7 @@ class App extends Component {
                     > 
                     </div> 
                     <form className="SearchBar">
-                    <input  className="SearchBarInput" type="text" name="query" value={this.state.query} onChange={(e)=>this.handleChange(e)} placeholder="Search.." >
+                    <input  className="SearchBarInput" type="text" name="query" value={this.state.query} onChange={(e)=>this.handleChange(e)} placeholder="Search..." >
                     </input>
                     </form> 
                 </div>
@@ -248,7 +248,7 @@ class App extends Component {
                     </form> 
                     </div> 
                 </div>
-                <Navigation userInSession={this.state.loggedInUser}/>
+                <Navigation userInSession={this.state.loggedInUser} setTheUser={this.setUser}/>
                 <div className="footer"></div>
                 <Switch>
                 <Route path="/signup" render={() => <Signup setTheUser={this.setUser} />} />

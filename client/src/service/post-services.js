@@ -2,8 +2,8 @@ import axios from 'axios'
 
 export default class services {
 
+    // baseURL: 'http://localhost:8000/api/'
     constructor() {
-        // baseURL: 'http://localhost:8000/api/'
         this.service = axios.create({
             baseURL: process.env.REACT_APP_URL
         })
